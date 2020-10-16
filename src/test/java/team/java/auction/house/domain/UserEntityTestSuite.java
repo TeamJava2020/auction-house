@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 public class UserEntityTestSuite {
 
     @Autowired
-    private UserRepository userEntityRepository;
+    private UserRepository userRepository;
 
     @Test
     public void testAddingSingleUserToUserEntity(){
@@ -23,7 +23,7 @@ public class UserEntityTestSuite {
         UserEntity user = new UserEntity("name", "login", "password");
 
         //when
-        userEntityRepository.save(user);
+        userRepository.save(user);
         long id = user.getId();
 
         //then
