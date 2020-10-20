@@ -8,19 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class UserMapper {
+public class UserMapper implements Mapper<UserDTO,UserEntity> {
 
     public List<UserDTO> mapToUserDtoList(List<UserEntity> users) {
         List<UserDTO> usersDTO = new ArrayList<>();
-        users.forEach(user -> usersDTO.add(mapToUserDto(user)));
+        users.forEach(user -> usersDTO.add(toDto(user)));
         return usersDTO;
     }
 
-    public UserDTO mapToUserDto(UserEntity user) {
-        return new UserDTO(user.getId(), user.getUserName(), user.getLogin(), user.getPassword());
+    @Override
+    public UserDTO toDto(UserEntity userEntity) {
+        return new UserDTO(
+                userEntity.getId(),
+                userEntity.getUserName(),
+                userEntity.getLogin(),
+                userEntity.getPassword()
+        );
     }
 
-    public UserEntity mapToUser(UserDTO userDto) {
-        return new UserEntity(userDto.getUserName(), userDto.getLogin(), userDto.getPassword());
+    @Override
+    public UserEntity toEntity(UserDTO userDTO) {
+        return new UserEntity(
+                userDTO.getUserName(),
+                userDTO.getLogin(),
+                userDTO.getPassword()
+        );
     }
 }
